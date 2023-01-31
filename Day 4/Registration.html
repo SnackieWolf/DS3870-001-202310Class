@@ -41,8 +41,59 @@
         const strHello="Hello";
         var strWorld="World";
         let strName="EJ";
-        alert(strHello + ' ' + strWorld + '. This is ' + strName);
+        //alert(strHello + ' ' + strWorld + '. This is ' + strName);
         //Hello World . This is EJ
+
+        //retrieve the value of the input with the value of txtEmail
+        $('#txtEmail').val();
+
+
+        //retrieve password value
+        $('#txtPassword').val();
+
+        $('#btnSubmit').click(function(){
+            let strFirst = $('#txtFirstName').val();
+            let intFirstLength = $('#txtFirstName').val().length;
+
+            let strLast = $('#txtLastName').val();
+            let intLastLength = $('#txtLastName').val().length;
+
+            let strEmail = $('#txtEmail').val();
+            let intEmailLength = $('#txtEmail').val().length;
+
+            let strPassword = $('#txtPassword').val();
+            let intPasswordLength = $('#txtPassword').val().length;
+
+            //var blnErrorFound = false;
+            var strErrorMessage = '';
+
+            if(intFirstLength < 1){
+                //blnErrorFound=true;
+                strErrorMessage += " You must enter a first name.";
+                //console.log('You must enter a first name')
+            }
+            if(intLastLength < 1){
+               // blnErrorFound=true;
+                strErrorMessage += " You must enter a last name.";
+                //console.log('You must enter a last name')
+            }
+            if(intEmailLength < 1){
+               // blnErrorFound=true;
+                strErrorMessage += " You must enter an email.";
+                //console.log('You must enter an email')
+            }
+            if(intPasswordLength < 1){
+               // blnErrorFound=true;
+                strErrorMessage += " You must enter a password.";
+               // console.log('You must enter a password')
+            }
+            if(strErrorMessage.length > 0){
+            alert(strErrorMessage);
+
+            }
+            alert('First Name: '+ strFirst + ' | Last Name: ' + strLast + ' | Username: '+strEmail+' | Password: '+strPassword);
+            
+        })
     </script>
 </body>
 </html>
