@@ -15,7 +15,7 @@
             </div>
             <div class="col-12 col-md-6 col-lg-4 card vh-50">
                     <div class="card-head">
-                        <h3 class="text-center pt-2">Register</h3>
+                        <h3 class="text-center pt-2" id='titleReg'>Register</h3>
                         <h4 class="text-center d-none d-md-block">Fill me out!</h4>
                     </div>
                 <div class="card-body">
@@ -51,7 +51,17 @@
         //retrieve password value
         $('#txtPassword').val();
 
+        var arrTest=[];
+            
+        function doesInclude(arrItems,strCheck){
+            return arrItems.includes(strCheck);
+        }
+            
+        
         $('#btnSubmit').click(function(){
+            arrTest.push('apple');
+            arrTest.push('Pear');
+            arrTest.push('orange');
             let strFirst = $('#txtFirstName').val();
             let intFirstLength = $('#txtFirstName').val().length;
 
@@ -66,6 +76,9 @@
 
             //var blnErrorFound = false;
             var strErrorMessage = '';
+
+            
+
 
             if(intFirstLength < 1){
                 //blnErrorFound=true;
@@ -90,7 +103,12 @@
             if(strErrorMessage.length > 0){
             alert(strErrorMessage);
 
+            if(arrTest.includes('Pear')){
+                console.log('True')
             }
+
+            }
+            
             alert('First Name: '+ strFirst + ' | Last Name: ' + strLast + ' | Username: '+strEmail+' | Password: '+strPassword);
             
         })
