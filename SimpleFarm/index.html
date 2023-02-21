@@ -29,6 +29,18 @@
                             <input id="txtSearch" class="form-control" type="text"> 
                             <button class="btn btn-primary col-12 mt-3" id="btnSearch" type="button">Search</button> 
                         </form>
+                        <table class='col-12 table' id='tblResults'>
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Name</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            
+                            </tbody>
+                        </table>
                     </div> 
                 </div>  
             </div> 
@@ -36,6 +48,8 @@
             <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script> 
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.all.min.js"></script>
             <script>
+                $('#txtEmail').val('scruffmcgruff@gmail.com');
+                $('#txtPassword').val('Mickey2022!');
                 $('#btnLogin').on('click',function(){
                     console.log('Login Button Clicked');
                     let strEmail = $('#txtEmail').val();
@@ -60,8 +74,27 @@
                     let strSearch=$('#txtSearch').val();
                     let strSession=sessionStorage.getItem('SimpleFarmSession')
                     $.getJSON('https://simplefarm.thesimplehomestead.com/api/animals.php',{SessionID:strSession, AnimalType: strSearch},function(result){
+                        $.each(result,function(index,animal){
+                            let strRowHTML='';
+                            strRowHTML+='<tr>';
+                            strRowHTML+='<td>' + animal.Type + '</td>';
+                            strRowHTML+='<td>' + animal.Name + '</td>';
+                            strRowHTML+='<td><button data-enteredby="' + animal.EnteredBy + '" data-animalid="' + animal.AnimalID + '" class = "btn btn-secondary btnAnimalInfo">More Info</button></td>';
+
+                            strRowHTML+='</tr>';
+                            $('#tblResults tbody').append(strRowHTML);
+                        })
                         console.table(result);
+                        
                     })                    
+                })
+
+                $(document).on('click','.btnAnimalInfo',function(){
+                    let strEnteredBy= $(this).attr('data-enteredby')
+                    let strAnimalID= $(this).attr('data-animalid')
+                    console.log(strEnteredBy)
+                    console.log(strAnimalID)
+                    alert('I clicked an animal with ID of ' + strAnimalID + ' entered by ' + strEnteredBy);
                 })
             </script>
         </body>
