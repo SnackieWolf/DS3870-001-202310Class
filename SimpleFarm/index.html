@@ -24,6 +24,7 @@
                 </div>
                 <div class="card col-11 col-md-4 col-lg-2" id="divFarmSearch" style='display:none;'> 
                     <div class="card-body"> 
+                        <button id="btnLogOut" class="btn btn-danger">Log Out</button>
                         <form>
                             <label for="txtSearch" class="form-label">Search</label> 
                             <input id="txtSearch" class="form-control" type="text"> 
@@ -50,6 +51,21 @@
             <script>
                 $('#txtEmail').val('scruffmcgruff@gmail.com');
                 $('#txtPassword').val('Mickey2022!');
+                $('#btnLogOut').on('click',function(){
+                    let strSessionID=sessionStorage.getItem('SimpleFarmSession')
+                    $.ajax({
+                        url: 'https://simplefarm.thesimplehomestead.com/api.sessions.php',
+                        method: 'delete',
+                        data: {
+                            SessionID:strSessionID
+                        },
+                        dataType: "html"
+                    }).done(function(result){
+                        console.log(result);
+                    }).fail(function(req,strStatus,error){
+                        console.log(jQuery(error).text());
+                    })
+                })
                 $('#btnLogin').on('click',function(){
                     console.log('Login Button Clicked');
                     let strEmail = $('#txtEmail').val();
@@ -73,6 +89,14 @@
                 $('#btnSearch').on('click',function(){
                     let strSearch=$('#txtSearch').val();
                     let strSession=sessionStorage.getItem('SimpleFarmSession')
+                    $.ajax({
+                        url:'https://simplefarm.thesimplehomestead.com/api/animals.php',
+                        method: 'put',
+                        data: {
+                            SessionID:strSessionID
+                        },
+                        dataType: 'html'
+                    })
                     $.getJSON('https://simplefarm.thesimplehomestead.com/api/animals.php',{SessionID:strSession, AnimalType: strSearch},function(result){
                         $.each(result,function(index,animal){
                             let strRowHTML='';
